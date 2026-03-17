@@ -17,7 +17,7 @@ class UserService:
             )
         return self.user_repository.create_user(data, self.encryption_service.hash_password(data.password))
         
-    def list_users(self):
+    def get_users(self):
         return self.user_repository.get_all_users()
     
     def get_user_by_id(self, user_id: int):

@@ -11,8 +11,12 @@ router = APIRouter(prefix="/users")
 def create_user(data: CreateUser, session: Session = Depends(get_db)):
     return UserService(session).create_user(data)
 
-@router.get("", response_model=ReponseUser)
-def get_user(user_id: int = Depends(jwt_auth), session: Session = Depends(get_db)):
+@router.get("", response_model=list[ReponseUser])
+def get_users(session: Session = Depends(get_db)):
+    return UserService(session).get_users()
+
+@router.get("/{id}", response_model=ReponseUser)
+def get_user_by_id(user_id: int = Depends(jwt_auth), session: Session = Depends(get_db)):
     return UserService(session).get_user_by_id(user_id)
 
 @router.put("", response_model=ReponseUser)

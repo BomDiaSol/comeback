@@ -16,12 +16,7 @@ class JwtService:
 
 
     def generate_jwt(self, user_id):
-        payload = JwtPayload(
-            user_id=user_id,
-            created_at=datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc),
-            expiration=datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc) + datetime.timedelta(hours=72)
-        ).to_dict()
-
+        payload = JwtPayload(user_id = user_id)
         token = jwt.encode(payload, self.jwt_secret, algorithm="HS256")
 
         return token
